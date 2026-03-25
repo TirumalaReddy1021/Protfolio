@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jampani Tirumala Reddy| Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@400;600;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDark: '#050505',
+                        borderMain: '#262626',
+                        textMain: '#f5f5f5',
+                        textMuted: '#888888'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Stark B&W Base */
+        :root {
+            --mouse-x: 50vw;
+            --mouse-y: 50vh;
+        }
+
+        body {
+            background-color: #050505;
+            color: #f5f5f5;
+            overflow-x: hidden;
+            cursor: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+        }
+
+        /* =========================================
+           DYNAMIC MULTI-COLOR SPOTLIGHT REVEAL
+           ========================================= */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .multi-color-spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 40;
+
+            background: linear-gradient(45deg, #ff007f, #7928ca, #00f2fe, #facc15, #ff007f);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+
+            mix-blend-mode: color-dodge;
+            opacity: 0.8;
+
+            mask-image: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), black 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), black 0%, transparent 80%);
+            transition: mask-image 0.1s ease-out, -webkit-mask-image 0.1s ease-out;
+        }
+
+        /* Sharp Cursor Reticle */
+        .cursor-crosshair {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+
+        .cursor-crosshair::before,
+        .cursor-crosshair::after {
+            content: '';
+            position: absolute;
+            background: white;
+        }
+
+        .cursor-crosshair::before {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            transform: translateY(-50%);
+        }
+
+        .cursor-crosshair::after {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px),
+        (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+
+            .multi-color-spotlight,
+            .cursor-crosshair {
+                display: none;
+            }
+        }
+
+        /* Brutalist Structural Elements */
+        .sharp-border {
+            border: 1px solid var(--borderMain);
+            border-radius: 0;
+        }
+
+        .sharp-border-b {
+            border-bottom: 1px solid var(--borderMain);
+        }
+
+        .sharp-border-t {
+            border-top: 1px solid var(--borderMain);
+        }
+
+        /* Row Hover Effects */
+        .data-row {
+            transition: background-color 0.2s ease, padding-left 0.2s ease;
+        }
+
+        .data-row:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+            padding-left: 1rem;
+            border-left: 4px solid white;
+        }
+
+        /* Typing Effect */
+        .typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1em;
+            background-color: white;
+            margin-left: 8px;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Floating Animation for Certificates */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float-card {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-delay-1 {
+            animation-delay: 1s;
+        }
+
+        .float-delay-2 {
+            animation-delay: 2s;
+        }
+
+        .float-delay-3 {
+            animation-delay: 3s;
+        }
+
+        .float-delay-4 {
+            animation-delay: 4s;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="multi-color-spotlight"></div>
+    <div class="cursor-crosshair" id="cursor"></div>
+
+    <nav class="fixed top-0 w-full z-50 bg-[#050505]/90 border-b border-borderMain backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-widest uppercase">J.T.R.</a>
+            <div class="hidden md:flex space-x-8 text-sm font-mono font-bold text-textMuted uppercase tracking-widest">
+                <a href="#about" class="hover:text-white transition-colors">SYS.INFO</a>
+                <a href="#bio" class="hover:text-white transition-colors">BIO</a>
+                <a href="#skills" class="hover:text-white transition-colors">STACK</a>
+                <a href="#projects" class="hover:text-white transition-colors">PROJECTS</a>
+                <a href="#education" class="hover:text-white transition-colors">DATA_LOG</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
+
+        <section id="about" class="min-h-[80vh] flex flex-col justify-center reveal">
+            <div class="grid md:grid-cols-12 gap-8 items-end">
+                <div class="md:col-span-9">
+                    <p
+                        class="font-mono text-textMuted mb-6 tracking-widest uppercase text-sm border-l-2 border-textMuted pl-4">
+                        Identification Matrix</p>
+                    <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-6">
+                        Tirumala<br>Reddy.</h1>
+                    <h2 class="text-2xl md:text-4xl font-bold text-textMuted font-mono h-12 flex items-center mb-8">
+                        > <span id="typewriter" class="text-white ml-4"></span><span class="typing-cursor"></span>
+                    </h2>
+                </div>
+                <div class="md:col-span-3 pb-4">
+                    <p class="font-mono text-textMuted text-sm mb-6 leading-relaxed">
+                        Engineering intelligent machine learning pipelines and architecting robust software solutions,
+                        driven by rigorous problem-solving.
+                    </p>
+                    <div class="flex flex-col gap-4 font-mono text-sm uppercase font-bold tracking-widest">
+                        <a href="#projects"
+                            class="sharp-border py-4 px-6 text-center hover:bg-white hover:text-black transition-colors bg-[#0a0a0a]">Execute
+                            Output</a>
+                        <a href="TiruCV.pdf" download="Jampani_Tirumala_Reddy_CV.pdf"
+                            class="sharp-border py-4 px-6 text-center hover:bg-white hover:text-black transition-colors bg-[#0a0a0a] flex items-center justify-center gap-2">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/TirumalaReddy1021" target="_blank"
+                                class="flex-1 sharp-border py-3 text-center hover:bg-white hover:text-black transition-colors bg-[#0a0a0a]"><i
+                                    class="fab fa-github text-xl"></i></a>
+                            <a href="https://www.linkedin.com/in/tirumala07" target="_blank"
+                                class="flex-1 sharp-border py-3 text-center hover:bg-white hover:text-black transition-colors bg-[#0a0a0a]"><i
+                                    class="fab fa-linkedin-in text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bio" class="py-24 reveal">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 border-b-4 border-white pb-4 inline-block">
+                Personal_Core</h2>
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+
+                <div
+                    class="md:col-span-5 sharp-border p-8 bg-[#0a0a0a] relative group min-h-[400px] flex flex-col justify-between overflow-hidden">
+                    <div
+                        class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]">
+                    </div>
+
+                    <div class="relative z-10">
+                        <p
+                            class="font-mono text-xs uppercase tracking-widest bg-white text-black px-2 py-1 inline-block mb-6 font-bold">
+                            Status: Online</p>
+                        <i class="fas fa-fingerprint text-6xl text-textMuted mb-6 block opacity-50"></i>
+                    </div>
+
+                    <div class="relative z-10 border-t border-borderMain pt-4">
+                        <h3 class="text-2xl font-black uppercase mb-1">Jampani Tirumala Reddy</h3>
+                        <p class="font-mono text-sm text-textMuted mb-2">Location // Vijayawada, AP</p>
+                        <p class="font-mono text-xs text-textMuted uppercase tracking-widest">Academic Sys: LPU</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 flex flex-col justify-center space-y-6">
+                    <p class="text-textMain font-mono text-base leading-relaxed text-justify">
+                        I am an AI & Machine Learning aficionado pursuing my B.Tech in Computer Science and Engineering
+                        at Lovely Professional University. My core focus lies in algorithmic problem-solving and
+                        developing scalable AI-driven applications. From building CNNs for image classification to
+                        deploying interactive data platforms via Streamlit, I enjoy engineering smart solutions.
+                    </p>
+                    <p class="text-textMuted font-mono text-base leading-relaxed text-justify">
+                        Equipped with a robust technical skill set spanning Python, Java, C, and essential data
+                        libraries (TensorFlow, Scikit-learn, Pandas), I continuously innovate and validate my knowledge
+                        by crafting complex projects. My accomplishments include securing the 94th percentile in the
+                        rigorous JEE Mains and achieving District Rank in the International Maths Olympiad.
+                    </p>
+                    <p class="text-textMuted font-mono text-base leading-relaxed text-justify">
+                        I bridge theoretical knowledge with practical implementations through projects such as Plant
+                        Disease Prediction using Deep Learning, Satellite Imagery Analysis utilizing U-Net architecture,
+                        and LLM-powered GitHub tools. My goal is to build intelligent infrastructures that are robust,
+                        highly available, and easily adaptable to real-world challenges.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <span
+                            class="sharp-border px-4 py-2 font-mono text-xs uppercase bg-[#050505] text-textMuted hover:text-white hover:border-white transition-colors cursor-default">Machine
+                            Learning</span>
+                        <span
+                            class="sharp-border px-4 py-2 font-mono text-xs uppercase bg-[#050505] text-textMuted hover:text-white hover:border-white transition-colors cursor-default">Deep
+                            Learning</span>
+                        <span
+                            class="sharp-border px-4 py-2 font-mono text-xs uppercase bg-[#050505] text-textMuted hover:text-white hover:border-white transition-colors cursor-default">Problem
+                            Solving</span>
+                        <span
+                            class="sharp-border px-4 py-2 font-mono text-xs uppercase bg-[#050505] text-textMuted hover:text-white hover:border-white transition-colors cursor-default">System
+                            Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 reveal">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 border-b-4 border-white pb-4 inline-block">
+                Tech_Stack</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 sharp-border">
+                <div class="p-8 border-b lg:border-b-0 md:border-r border-borderMain">
+                    <i class="fas fa-terminal text-4xl mb-6 text-white"></i>
+                    <h3 class="text-xl font-black uppercase mb-4">Programming</h3>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-textMuted">
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Python</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Java</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">C</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">SQL</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">HTML / CSS</span>
+                    </div>
+                </div>
+                <div class="p-8 border-b lg:border-b-0 lg:border-r border-borderMain bg-[#0a0a0a]">
+                    <i class="fas fa-microchip text-4xl mb-6 text-white"></i>
+                    <h3 class="text-xl font-black uppercase mb-4">ML & Data</h3>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-textMuted">
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">TensorFlow</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Keras</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Scikit-Learn</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">NumPy</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Pandas</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Seaborn</span>
+                    </div>
+                </div>
+                <div class="p-8 border-b md:border-b-0 md:border-r border-borderMain">
+                    <i class="fas fa-cubes text-4xl mb-6 text-white"></i>
+                    <h3 class="text-xl font-black uppercase mb-4">Infrastructure & Tools</h3>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-textMuted">
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Tableau</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Git</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">AWS</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Streamlit</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Excel</span>
+                        <span class="sharp-border px-3 py-1 bg-[#0a0a0a]">Packet Tracer</span>
+                    </div>
+                </div>
+                <div class="p-8 bg-[#0a0a0a]">
+                    <i class="fas fa-globe text-4xl mb-6 text-white"></i>
+                    <h3 class="text-xl font-black uppercase mb-4">Soft Skills</h3>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-textMuted">
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Problem Solving</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Project Mgmt</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Adaptability</span>
+                        <span class="sharp-border px-3 py-1 bg-[#050505]">Logical Thinking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="experience" class="py-24 reveal">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 border-b-4 border-white pb-4 inline-block">Internship_Experience</h2>
+            
+            <div class="sharp-border-t">
+                
+                <a href="#" class="data-row flex flex-col md:flex-row sharp-border-b py-10 gap-8 group">
+                    <div class="md:w-1/4">
+                        <p class="font-mono text-textMuted text-xs tracking-widest uppercase mb-2 group-hover:text-white transition-colors">E-01 // Internship</p>
+                        <h3 class="text-3xl font-black uppercase mb-4 leading-none">Design<br>Thinking</h3>
+                        <p class="font-mono text-sm uppercase tracking-widest text-textMuted"><i class="fas fa-calendar-alt"></i> Jun 2025 - Jul 2025</p>
+                    </div>
+                    <div class="md:w-2/4">
+                        <h4 class="text-xl font-bold uppercase mb-2 group-hover:text-white transition-colors">
+                            Summer Training: Design Thinking & Figma 
+                            <i class="fas fa-external-link-alt text-sm ml-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h4>
+                        <p class="text-textMuted font-mono text-sm leading-relaxed text-justify mb-4">
+                            Completed an intensive skill development course organized by the Centre for Professional Enhancement at Lovely Professional University. Gained hands-on experience in UI/UX principles, wireframing, and rapid prototyping using Figma.
+                        </p>
+                        <div class="inline-block sharp-border px-4 py-2 font-mono text-sm text-white bg-[#0a0a0a] group-hover:bg-black group-hover:border-white transition-colors">
+                            Grade Achieved // <span class="font-bold text-green-400">A</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/4 flex flex-col gap-2 font-mono text-xs uppercase text-right justify-start">
+                        <span class="bg-white text-black px-3 py-1 font-bold">Figma</span>
+                        <span class="sharp-border px-3 py-1 group-hover:border-white transition-colors">UI/UX Design</span>
+                        <span class="sharp-border px-3 py-1 group-hover:border-white transition-colors">Prototyping</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 reveal">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-12 border-b-4 border-white pb-4 inline-block">
+                Execution_Logs</h2>
+
+            <div class="sharp-border-t">
+
+                <div class="data-row flex flex-col md:flex-row sharp-border-b py-10 gap-8">
+                    <div class="md:w-1/4">
+                        <p class="font-mono text-textMuted text-xs tracking-widest uppercase mb-2">PRJ-01 // Computer
+                            Vision</p>
+                        <h3 class="text-3xl font-black uppercase mb-4 leading-none">Plant Disease<br>Prediction</h3>
+                        <a href="https://github.com/TirumalaReddy1021" target="_blank"
+                            class="font-mono text-sm uppercase tracking-widest border-b border-white pb-1 hover:text-textMuted"><i
+                                class="fab fa-github"></i> Repository</a>
+                    </div>
+                    <div class="md:w-2/4">
+                        <p class="text-textMuted font-mono text-sm leading-relaxed text-justify">
+                            Developed a deep learning-based system to detect and classify plant diseases from leaf
+                            images. Built and trained a Convolutional Neural Network (CNN) for accurate prediction,
+                            applying robust image preprocessing like resizing, normalization, and data augmentation.
+                            Achieved over 90% accuracy in separating healthy plants from diseased ones, and integrated a
+                            web interface with Streamlit for real-time predictions.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 flex flex-col gap-2 font-mono text-xs uppercase text-right justify-start">
+                        <span class="bg-white text-black px-3 py-1 font-bold">Python</span>
+                        <span class="sharp-border px-3 py-1">TensorFlow / Keras</span>
+                        <span class="sharp-border px-3 py-1">Scikit-Learn</span>
+                        <span class="sharp-border px-3 py-1">Streamlit</span>
+                    </div>
+                </div>
+
+                <div class="data-row flex flex-col md:flex-row sharp-border-b py-10 gap-8">
+                    <div class="md:w-1/4">
+                        <p class="font-mono text-textMuted text-xs tracking-widest uppercase mb-2">PRJ-02 // DL
+                            Segmentation</p>
+                        <h3 class="text-3xl font-black uppercase mb-4 leading-none">Satellite<br>Imagery</h3>
+                        <a href="https://github.com/TirumalaReddy1021" target="_blank"
+                            class="font-mono text-sm uppercase tracking-widest border-b border-white pb-1 hover:text-textMuted"><i
+                                class="fab fa-github"></i> Repository</a>
+                    </div>
+                    <div class="md:w-2/4">
+                        <p class="text-textMuted font-mono text-sm leading-relaxed text-justify">
+                            Executed a U-Net model aimed at detailed satellite image segmentation and land-use
+                            classification. Applied complex data augmentation methodologies to refine model
+                            generalization capabilities. The framework leveraged TensorFlow and Keras to accomplish
+                            cutting-edge precision in classification tasks, all deployed on an accessible Streamlit web
+                            application.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 flex flex-col gap-2 font-mono text-xs uppercase text-right justify-start">
+                        <span class="bg-white text-black px-3 py-1 font-bold">NumPy</span>
+                        <span class="sharp-border px-3 py-1">Pandas & OpenCV</span>
+                        <span class="sharp-border px-3 py-1">Matplotlib & Seaborn</span>
+                    </div>
+                </div>
+
+                <div class="data-row flex flex-col md:flex-row sharp-border-b py-10 gap-8">
+                    <div class="md:w-1/4">
+                        <p class="font-mono text-textMuted text-xs tracking-widest uppercase mb-2">PRJ-03 // Generative
+                            AI</p>
+                        <h3 class="text-3xl font-black uppercase mb-4 leading-none">Commit<br>Msg Gen</h3>
+                        <a href="https://github.com/TirumalaReddy1021" target="_blank"
+                            class="font-mono text-sm uppercase tracking-widest border-b border-white pb-1 hover:text-textMuted"><i
+                                class="fab fa-github"></i> Repository</a>
+                    </div>
+                    <div class="md:w-2/4">
+                        <p class="text-textMuted font-mono text-sm leading-relaxed text-justify">
+                            Constructed an AI-powered agent designed to scan code diffs and dynamically produce
+                            well-structured Git commit messages. Integrated capabilities across multiple Large Language
+                            Models (LLMs) to ensure flexible model experimentation and adherence to the Conventional
+                            Commits framework. Engineered YAML-based configs to adapt effortlessly across simulated and
+                            production pipelines.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 flex flex-col gap-2 font-mono text-xs uppercase text-right justify-start">
+                        <span class="bg-white text-black px-3 py-1 font-bold">Python</span>
+                        <span class="sharp-border px-3 py-1">LLMs (GenAI)</span>
+                        <span class="sharp-border px-3 py-1">Git / YAML</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="py-24 reveal">
+            <h2 class="text-4xl font-black uppercase tracking-tighter mb-16 border-b-4 border-white pb-4 inline-block">
+                Academic_Record</h2>
+
+            <div class="relative border-l-2 border-borderMain ml-4 md:ml-0 space-y-12 pb-4">
+
+                <div class="relative pl-8 md:pl-12 reveal">
+                    <div class="absolute w-4 h-4 bg-white -left-[9px] top-1 sharp-border"></div>
+                    <div
+                        class="sharp-border p-8 bg-[#0a0a0a] hover:bg-white hover:text-black transition-all duration-300 group max-w-4xl">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                            <h3 class="text-2xl font-black uppercase mb-2 md:mb-0">B.Tech Computer Science & Engineering
+                            </h3>
+                            <span
+                                class="font-mono text-xs font-bold bg-white text-black group-hover:bg-black group-hover:text-white px-3 py-1 uppercase self-start transition-colors">Aug
+                                23 - Present</span>
+                        </div>
+                        <p class="font-mono text-sm opacity-80 group-hover:opacity-100 transition-opacity mb-4">Lovely
+                            Professional University | Phagwara, Punjab</p>
+                        <p
+                            class="font-mono text-xs text-textMuted border-l-2 border-textMuted group-hover:border-black group-hover:text-black pl-4 py-1 transition-colors">
+                            <strong>CGPA:</strong> 7.75 <br />
+                            Building strong foundations in algorithms, data science, deep learning architectures, and
+                            scalable web solutions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 md:pl-12 reveal" style="transition-delay: 100ms;">
+                    <div class="absolute w-4 h-4 bg-[#0a0a0a] border-2 border-white -left-[9px] top-1"></div>
+                    <div class="sharp-border p-8 bg-[#050505] hover:bg-[#0a0a0a] transition-colors max-w-4xl">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                            <h3 class="text-2xl font-black uppercase mb-2 md:mb-0">Intermediate</h3>
+                            <span
+                                class="font-mono text-xs font-bold sharp-border px-3 py-1 text-textMuted uppercase self-start">Jul
+                                2021 - Mar 2023</span>
+                        </div>
+                        <p class="font-mono text-sm text-textMuted mb-4">Sri Chaitanya College | Vijayawada, AP</p>
+                        <div class="flex items-center gap-4">
+                            <div class="inline-block sharp-border px-4 py-2 font-mono text-sm text-white bg-[#0a0a0a]">
+                                Percentage // <span class="font-bold">97.8%</span>
+                            </div>
+                            <p class="font-mono text-xs text-textMuted border-l-2 border-borderMain pl-4 py-1">
+                                Mathematics, Physics, and Chemistry.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 md:pl-12 reveal" style="transition-delay: 200ms;">
+                    <div class="absolute w-4 h-4 bg-[#0a0a0a] border-2 border-borderMain -left-[9px] top-1"></div>
+                    <div class="sharp-border p-8 bg-[#050505] hover:bg-[#0a0a0a] transition-colors max-w-4xl">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                            <h3 class="text-2xl font-black uppercase mb-2 md:mb-0">Matriculation</h3>
+                            <span
+                                class="font-mono text-xs font-bold sharp-border px-3 py-1 text-textMuted uppercase self-start">Jun
+                                2020 - Mar 2021</span>
+                        </div>
+                        <p class="font-mono text-sm text-textMuted mb-4">Sri Chaitanya School | Tenali, AP</p>
+                        <div class="flex items-center gap-4">
+                            <div class="inline-block sharp-border px-4 py-2 font-mono text-sm text-white bg-[#0a0a0a]">
+                                Percentage // <span class="font-bold">100%</span>
+                            </div>
+                            <p class="font-mono text-xs text-textMuted border-l-2 border-borderMain pl-4 py-1">
+                                Perfect score in comprehensive high school curriculum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="credentials" class="py-24 reveal">
+
+            <div class="mb-24">
+                <h2
+                    class="text-3xl font-black uppercase tracking-tighter mb-10 border-b-2 border-borderMain pb-4 inline-block">
+                    Tech_Certificates</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <a href="#"
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-start flex-col gap-4 float-card hover:bg-white hover:text-black transition-colors cursor-pointer group block">
+                        <div class="flex justify-between w-full">
+                            <i
+                                class="fas fa-microchip text-3xl group-hover:text-black text-white transition-colors"></i>
+                            <i
+                                class="fas fa-external-link-alt opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold uppercase mb-1">Hardware & OS</h3>
+                            <p
+                                class="font-mono text-xs uppercase tracking-widest opacity-70 border-t border-borderMain group-hover:border-black pt-2 mt-2">
+                                Coursera</p>
+                        </div>
+                    </a>
+
+                    <a href="#"
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-start flex-col gap-4 float-card float-delay-1 hover:bg-white hover:text-black transition-colors cursor-pointer group block">
+                        <div class="flex justify-between w-full">
+                            <i
+                                class="fas fa-project-diagram text-3xl group-hover:text-black text-white transition-colors"></i>
+                            <i
+                                class="fas fa-external-link-alt opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold uppercase mb-1">Digital Systems</h3>
+                            <p
+                                class="font-mono text-xs uppercase tracking-widest opacity-70 border-t border-borderMain group-hover:border-black pt-2 mt-2">
+                                Coursera</p>
+                        </div>
+                    </a>
+
+                    <a href="#"
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-start flex-col gap-4 float-card float-delay-2 hover:bg-white hover:text-black transition-colors cursor-pointer group block">
+                        <div class="flex justify-between w-full">
+                            <i class="fab fa-react text-3xl group-hover:text-black text-white transition-colors"></i>
+                            <i
+                                class="fas fa-external-link-alt opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold uppercase mb-1">Javascript & React.JS</h3>
+                            <p
+                                class="font-mono text-xs uppercase tracking-widest opacity-70 border-t border-borderMain group-hover:border-black pt-2 mt-2">
+                                Devtown Learning</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div>
+                <h2
+                    class="text-3xl font-black uppercase tracking-tighter mb-10 border-b-2 border-borderMain pb-4 inline-block">
+                    Milestones & Achievements</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <div
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-center justify-between group hover:bg-white hover:text-black transition-colors cursor-default">
+                        <div class="flex items-center gap-6">
+                            <i class="fas fa-award text-2xl group-hover:text-black text-white transition-colors"></i>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase mb-1">IMO Rank Holder</h3>
+                                <p class="font-mono text-xs uppercase tracking-widest opacity-70">District Level - Jan
+                                    2026</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-center justify-between group hover:bg-white hover:text-black transition-colors cursor-default">
+                        <div class="flex items-center gap-6">
+                            <i
+                                class="fas fa-percentage text-2xl group-hover:text-black text-white transition-colors"></i>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase mb-1">94%ile in JEE Mains</h3>
+                                <p class="font-mono text-xs uppercase tracking-widest opacity-70">Top 6% Among 9L+ - Mar
+                                    2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="sharp-border p-6 bg-[#0a0a0a] flex items-center justify-between group hover:bg-white hover:text-black transition-colors cursor-default">
+                        <div class="flex items-center gap-6">
+                            <i
+                                class="fas fa-check-square text-2xl group-hover:text-black text-white transition-colors"></i>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase mb-1">100% Score</h3>
+                                <p class="font-mono text-xs uppercase tracking-widest opacity-70">Matriculation Board
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <section id="contact" class="py-24 reveal">
+            <div
+                class="sharp-border p-12 text-center bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]">
+                <p class="font-mono text-textMuted text-sm tracking-widest uppercase mb-4">Initialize Comm Link</p>
+                <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Establish<br>Connection</h2>
+
+                <div
+                    class="flex flex-col md:flex-row justify-center gap-6 mb-12 font-mono text-sm uppercase font-bold tracking-widest">
+                    <a href="mailto:tirumalareddy8817@gmail.com"
+                        class="sharp-border py-4 px-8 bg-[#050505] hover:bg-white hover:text-black transition-colors flex items-center justify-center block">
+                        <i class="fas fa-envelope mr-3"></i> tirumalareddy8817@gmail.com
+                    </a>
+                    <a href="tel:+917013857561"
+                        class="sharp-border py-4 px-8 bg-[#050505] hover:bg-white hover:text-black transition-colors flex items-center justify-center block">
+                        <i class="fas fa-phone mr-3"></i> +91-7013857561
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 text-center border-t border-borderMain bg-[#050505] z-50 relative">
+        <p class="font-mono text-xs text-textMuted uppercase tracking-widest">Data Structure &copy; 2026 // Jampani
+            Tirumala Reddy</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Multi-Color Spotlight Logic
+            const cursor = document.getElementById('cursor');
+
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Set CSS variables for the color-dodge mask
+                document.documentElement.style.setProperty('--mouse-x', `${posX}px`);
+                document.documentElement.style.setProperty('--mouse-y', `${posY}px`);
+
+                // Move the crosshair
+                cursor.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px))`;
+            });
+
+            // Make crosshair react to interactable elements
+            const interactables = document.querySelectorAll('a, .data-row, .sharp-border, .float-card');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '40px';
+                    cursor.style.height = '40px';
+                    cursor.style.border = '2px solid white';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '24px';
+                    cursor.style.height = '24px';
+                    cursor.style.border = 'none';
+                });
+            });
+
+            // 2. Typing Effect
+            const roles = ["Data Scientist", "Machine Learning Eng", "Software Engineer"];
+            const typeWriterElement = document.getElementById("typewriter");
+            let roleIndex = 0, charIndex = 0, isDeleting = false;
+
+            function type() {
+                const currentRole = roles[roleIndex];
+                if (isDeleting) {
+                    typeWriterElement.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typeWriterElement.textContent = currentRole.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typingSpeed = isDeleting ? 30 : 60;
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    typingSpeed = 2000; isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; typingSpeed = 500;
+                }
+                setTimeout(type, typingSpeed);
+            }
+            setTimeout(type, 1000);
+
+            // 3. Scroll Reveals
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>
